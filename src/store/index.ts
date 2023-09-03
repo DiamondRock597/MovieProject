@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import { loadTokenFromStorage } from 'features/auth/auth.actions';
-import { authSlice } from 'features/auth/auth.slice';
+import { loadTokenFromStorage } from 'features/user/user.actions';
+import { movieSlice } from 'features/movie/movie.slice';
+import { userSlice } from 'features/user/user.slice';
 
 export const initStore = async () => {
     const store = configureStore({
         reducer: {
-            [authSlice.name]: authSlice.reducer
+            [userSlice.name]: userSlice.reducer,
+            [movieSlice.name]: movieSlice.reducer
         }
     });
 

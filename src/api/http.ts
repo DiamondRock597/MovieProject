@@ -15,10 +15,6 @@ export class Http {
         this.axiosInstance = axios.create({ baseURL, headers });
     }
 
-    public addBearerToken(token: string) {
-        this.addHeader('Authorization', `Bearer ${token}`);
-    }
-
     public addHeader(header: string, value: string | number) {
         this.headers[header] = value;
         this.createAxiosInstance();
@@ -53,3 +49,5 @@ export class Http {
         this.axiosInstance = axios.create({ baseURL: this.baseURL, headers: this.headers });
     }
 }
+
+export const http = new Http('baseUrl');
