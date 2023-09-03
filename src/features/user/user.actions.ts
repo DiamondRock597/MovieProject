@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { StorageKeys, memory } from 'api/memory';
 import { http } from 'api/http';
+import { RootState, RootStore } from 'store:/index';
 
 export interface UserLoginParams {
   email: string;
@@ -18,7 +19,7 @@ export interface UserRegisterParams {
 export const loadTokenFromStorage = createAsyncThunk('user/loadToken', async () => {
   const token = await memory.load<string>(StorageKeys.AccessToken);
 
-  http.addHeader('Authorization', `Bearer ${token}`);
+  http.addHeader('Authorization', token);
 
   return token || '';
 });
@@ -26,7 +27,7 @@ export const loadTokenFromStorage = createAsyncThunk('user/loadToken', async () 
 export const login = createAsyncThunk('user/login', async (payload: UserLoginParams) => {
   const response = await http.post<{ token: string }>('sessions', { params: payload });
 
-  http.addHeader('Authorization', `Bearer ${response.token}`);
+  http.addHeader('Authorization', response.token);
 
   return response.token;
 });
@@ -34,7 +35,7 @@ export const login = createAsyncThunk('user/login', async (payload: UserLoginPar
 export const register = createAsyncThunk('user/register', async (payload: UserRegisterParams) => {
   const response = await http.post<{ token: string }>('users', { params: payload });
 
-  http.addHeader('Authorization', `Bearer ${response.token}`);
+  http.addHeader('Authorization', response.token);
 
   return "token";
 });
