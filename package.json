@@ -1,6 +1,6 @@
 {
   "name": "movie",
-  "main": "App.tsx",
+  "main": "node_modules/expo/AppEntry.js",
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
@@ -11,7 +11,10 @@
     "@expo/vector-icons": "13.0.0",
     "@react-native-async-storage/async-storage": "1.18.2",
     "@react-navigation/native": "6.0.2",
+    "@react-navigation/native-stack": "^6.9.13",
     "@reduxjs/toolkit": "1.9.5",
+    "@rneui/base": "4.0.0-rc.8",
+    "@rneui/themed": "4.0.0-rc.8",
     "axios": "1.5.0",
     "expo": "49.0.8",
     "expo-font": "11.4.0",
@@ -24,9 +27,11 @@
     "react-redux": "8.1.2"
   },
   "devDependencies": {
-    "@babel/core": "7.20.0",
-    "@types/react": "18.0.14",
+    "@babel/core": "7.20.2",
+    "@types/react": "18.2.14",
     "@types/react-native": "0.72.2",
+    "babel-plugin-module-resolver": "4.1.0",
+    "prettier": "3.0.3",
     "typescript": "5.1.3"
   },
   "private": true
