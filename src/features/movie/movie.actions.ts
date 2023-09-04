@@ -1,24 +1,23 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
 import { http } from "api/http";
 import { Movie } from "models/movie";
-// import { RootState } from "store";
-
+import { Response } from "models/response";
 export interface FetchMoviesParams {
     actor?: string;
     title?: string;
     search?: string;
     order?: string;
-    page: number;
+    offset: number;
 }
 
-//<{ items: Array<Movie>, page: number }, FetchMoviesParams, { state: RootState }>
+export const MOVIES_LIMIT = 8;
 
-export const fetchMovies = createAsyncThunk('movie/fetch', async (params: FetchMoviesParams, { getState }) => {
-    const { pageSize } = getState().movie;
-    const response = await http.get<Array<Movie>>('movies', {
+export const fetchMovies = createAsyncThunk('movie/list', async (params: FetchMoviesParams) => {
+    const response = await http.get<Response<Array<Movie>>>('/movies', {
         params: {
-            limit: pageSize,
-            offset: params.page,
+            limit: MOVIES_LIMIT,
+            offset: params.offset,
             actor: params.actor,
             title: params.actor,
             search: params.search,
@@ -26,5 +25,17 @@ export const fetchMovies = createAsyncThunk('movie/fetch', async (params: FetchM
         }
     });
 
-    return { items: response, page: params.page }
+    return { items: response?.data, offset: params.offset }
 });
+
+export const fetchMovie = createAsyncThunk('movie/details', async (movieId: number) => {
+    const response = await http.get<Response<Required<Movie>>>(`/movies/${movieId}`);
+
+    return response?.data;
+});
+
+export const deleteMovie = createAsyncThunk('movie/delete', async (movieId: number) => {
+    const response = await http.delete<Response>(`/movies/${movieId}`);
+
+    return response.status;
+})

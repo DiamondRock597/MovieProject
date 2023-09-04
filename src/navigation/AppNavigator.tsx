@@ -7,6 +7,7 @@ import { Home } from 'features/movie/screens/Home';
 import { Login } from 'features/user/screens/Login';
 import { Register } from 'features/user/screens/Register';
 import { useAppSelector } from 'store/hooks';
+import { MovieDetails } from 'features/movie/screens/MovieDetails';
 
 const Stack = createNativeStackNavigator<RootStackParamsList>();
 
@@ -19,6 +20,7 @@ export const AppNavigator = () => {
         {token ? (
           <Stack.Group>
             <Stack.Screen name={RootStackRoutes.Home} component={Home} />
+            <Stack.Screen name={RootStackRoutes.MovieDetails} component={MovieDetails} />
           </Stack.Group>
         ) : (
           <Stack.Group>

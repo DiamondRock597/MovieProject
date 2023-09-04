@@ -1,6 +1,7 @@
-import axios, {AxiosRequestConfig, type AxiosInstance} from 'axios';
+import axios, { AxiosRequestConfig, type AxiosInstance } from 'axios';
 
-import {AnyJson} from 'utils/any-json';
+import { AnyJson } from 'utils/any-json';
+import { baseURL } from '../../envs/env.json';
 
 type Headers = Record<string, string | number>;
 
@@ -12,7 +13,7 @@ export class Http {
   public constructor(baseURL: string = '', headers: Headers = {}) {
     this.baseURL = baseURL;
     this.headers = headers;
-    this.axiosInstance = axios.create({baseURL, headers});
+    this.axiosInstance = axios.create({ baseURL, headers });
   }
 
   public addHeader(header: string, value: string | number) {
@@ -30,7 +31,7 @@ export class Http {
     return response.data;
   }
 
-  public async post<T>(url: string, data?: AxiosRequestConfig<AnyJson>) {
+  public async post<T>(url: string, data?: AnyJson) {
     const response = await this.axiosInstance.post<T>(url, data);
     return response.data;
   }
@@ -46,8 +47,8 @@ export class Http {
   }
 
   private createAxiosInstance() {
-    this.axiosInstance = axios.create({baseURL: this.baseURL, headers: this.headers});
+    this.axiosInstance = axios.create({ baseURL: this.baseURL, headers: this.headers });
   }
 }
 
-export const http = new Http('baseUrl');
+export const http = new Http(baseURL, { 'Content-Type': 'application/json' });

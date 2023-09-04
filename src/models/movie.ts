@@ -5,7 +5,7 @@ export interface Movie {
   title: string;
   year: number;
   format: string;
-  actors: Array<Actor>;
+  actors?: Array<Actor>;
   createdAt: string;
   updatedAt: string;
 }

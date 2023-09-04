@@ -1,33 +1,34 @@
-import { Action, PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { Movie } from 'models/movie';
-import { fetchMovies } from './movie.actions';
+import { deleteMovie, fetchMovie, fetchMovies } from './movie.actions';
 
 export interface MovieState {
   items: Array<Movie>;
-  page: number;
-  pageSize: number;
-  order: string;
+  offset: number;
   isLoading: boolean;
+  selectedMovie: Required<Movie> | null;
 }
 
 const initialState: MovieState = {
   items: [],
-  page: 0,
-  pageSize: 10,
+  offset: 0,
   isLoading: false,
-  order: 'ASC'
+  selectedMovie: null
 };
 
 export const movieSlice = createSlice({
   name: 'movie',
   initialState,
-  reducers: {},
+  reducers: {
+    clearSelectedMovie: (state) => {
+      state.selectedMovie = null;
+    }
+  },
   extraReducers: {
     [fetchMovies.fulfilled.type]: (state, { payload }: PayloadAction<Omit<MovieState, 'isLoading'>>) => {
-      state.items = payload.page === 1 ? payload.items : [...state.items, ...payload.items];
-      state.page = payload.page;
-      state.order = payload.order;
+      state.items = payload.offset === 0 ? payload.items : [...state.items, ...payload.items];
+      state.offset = payload.offset;
       state.isLoading = false;
     },
     [fetchMovies.pending.type]: (state) => {
@@ -35,8 +36,32 @@ export const movieSlice = createSlice({
     },
     [fetchMovies.rejected.type]: (state) => {
       state.items = [];
-      state.page = 0;
+      state.offset = 0;
       state.isLoading = false;
+    },
+    [fetchMovie.fulfilled.type]: (state, { payload }) => {
+      state.selectedMovie = payload;
+      state.isLoading = false;
+    },
+    [fetchMovie.pending.type]: (state) => {
+      state.isLoading = true
+    },
+    [fetchMovie.rejected.type]: (state) => {
+      state.selectedMovie = null;
+    },
+    [deleteMovie.fulfilled.type]: (state) => {
+      state.isLoading = false;
+      state.selectedMovie = null;
+    },
+    [deleteMovie.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [deleteMovie.rejected.type]: (state) => {
+      state.isLoading = false;
+      state.selectedMovie = null;
     }
   }
 });
+
+
+export const { clearSelectedMovie } = movieSlice.actions;
