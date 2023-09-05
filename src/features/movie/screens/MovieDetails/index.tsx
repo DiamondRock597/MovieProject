@@ -58,6 +58,7 @@ export const MovieDetails = () => {
         <Text style={styles.sectionTitle}>Actors:</Text>
         <FlatList
           data={selectedMovie.actors}
+          style={styles.listContainer}
           contentContainerStyle={styles.detailsContainer}
           keyExtractor={(item) => `ActorItem-${item.id}`}
           renderItem={({ item }) => <Text style={styles.title}>{item.name}</Text>}

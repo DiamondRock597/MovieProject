@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-import { Button, Input } from '@rneui/base';
+import { Text, View, TouchableOpacity } from 'react-native';
+import { Input } from '@rneui/base';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Controller } from 'react-hook-form';
 
@@ -13,16 +13,30 @@ export const Login = () => {
     const { control, navigateToRegister, onSubmit } = useLogin();
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.title}>Welcome back to MovieProject!</Text>
+            <Text style={styles.title} numberOfLines={2}>Welcome back to MovieProject!</Text>
             <View style={styles.content}>
-                <Controller control={control} name={LoginFormValues.Email} render={({ field }) => (
-                    <Input label='Email' keyboardType='email-address' value={field.value} onChangeText={field.onChange} />
-                )} />
-                <Controller control={control} name={LoginFormValues.Password} render={({ field, fieldState: { error } }) => (
-                    <Input label='Password' secureTextEntry value={field.value} onChangeText={field.onChange} errorMessage={error?.message} />
-                )} />
+                <Controller
+                    rules={{ required: 'Email is required' }}
+                    control={control}
+                    name={LoginFormValues.Email}
+                    render={({ field, fieldState: { error } }) => (
+                        <Input label='Email' errorMessage={error?.message} keyboardType='email-address' value={field.value} onChangeText={field.onChange} />
+                    )}
+                />
+                <Controller
+                    rules={{ required: 'Password is required' }}
+                    control={control}
+                    name={LoginFormValues.Password}
+                    render={({ field, fieldState: { error } }) => (
+                        <Input label='Password' secureTextEntry value={field.value} onChangeText={field.onChange} errorMessage={error?.message} />
+                    )}
+                />
             </View>
-            <Button title='Sign in' buttonStyle={styles.buttonStyle} onPress={onSubmit} />
+            <TouchableOpacity style={styles.buttonStyle} onPress={onSubmit}>
+                <Text style={styles.buttonTitle}>
+                    Sign in
+                </Text>
+            </TouchableOpacity>
             <SwitchFooter title="Don't have an account?" subtitle='Sign up' onPress={navigateToRegister} />
         </SafeAreaView>
     )

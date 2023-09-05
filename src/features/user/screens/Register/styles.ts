@@ -1,3 +1,4 @@
+import { Colors } from "constants/colors";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
@@ -17,8 +18,14 @@ export const styles = StyleSheet.create({
         paddingVertical: 30,
     },
     buttonStyle: {
-        width: '100%',
-        backgroundColor: 'black',
-        borderRadius: 5
+        width: '70%',
+        padding: 5,
+        backgroundColor: Colors.Secondary,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
+    buttonTitle: {
+        color: Colors.Primary
+    }
 })

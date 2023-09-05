@@ -34,6 +34,9 @@ export const styles = StyleSheet.create({
         paddingVertical: 20,
         paddingHorizontal: 10
     },
+    listContainer: {
+        height: '25%'
+    },
     title: {
         fontSize: 16,
         lineHeight: 30,

@@ -1,4 +1,6 @@
 export enum ErrorCodes {
     MovieExists = 'MOVIE_EXISTS',
-    FormatError = 'FORMAT_ERROR'
+    FormatError = 'FORMAT_ERROR',
+    AUTHENTICATION_FAILED = 'AUTHENTICATION_FAILED',
+    EMAIL_NOT_UNIQUE = 'EMAIL_NOT_UNIQUE'
 }
