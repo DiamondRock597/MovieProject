@@ -1,6 +1,7 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-import {loadTokenFromStorage, login, register} from './user.actions';
+import { loadTokenFromStorage, login, logout, register } from './user.actions';
+import { memory } from 'api/memory';
 
 export interface UserState {
   token: string;
@@ -15,30 +16,27 @@ const initialState: UserState = {
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {
-    logout: state => {
-      state.token = '';
-    },
-  },
+  reducers: {  },
   extraReducers: {
-    [loadTokenFromStorage.fulfilled.type]: (state, {payload}) => {
+    [loadTokenFromStorage.fulfilled.type]: (state, { payload }) => {
       state.token = payload;
     },
     [login.pending.type]: state => {
       state.loading = true;
     },
-    [login.fulfilled.type]: (state, {payload}) => {
+    [login.fulfilled.type]: (state, { payload }) => {
       state.token = payload;
       state.loading = false;
     },
     [register.pending.type]: state => {
       state.loading = true;
     },
-    [register.fulfilled.type]: (state, {payload}) => {
+    [register.fulfilled.type]: (state, { payload }) => {
       state.token = payload;
       state.loading = false;
     },
+    [logout.fulfilled.type]: (state) => {
+      state.token = '';
+    }
   },
 });
-
-export const {logout} = userSlice.actions;

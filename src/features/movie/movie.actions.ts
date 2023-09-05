@@ -1,13 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { http } from "api/http";
+import { SearchMethod, searchMethodKey } from "constants/searchMethod";
 import { Movie, MovieFormats } from "models/movie";
+import { http } from "api/http";
 export interface FetchMoviesParams {
-    actor?: string;
-    title?: string;
-    search?: string;
     order?: string;
     offset: number;
+    searchValue?: string;
+    searchMethod?: SearchMethod;
 }
 
 export interface CreateMoviesParams {
@@ -19,13 +19,13 @@ export interface CreateMoviesParams {
 export const MOVIES_LIMIT = 8;
 
 export const fetchMovies = createAsyncThunk('movie/list', async (params: FetchMoviesParams) => {
+    const searchKey = searchMethodKey[params.searchMethod ?? SearchMethod.Title];
+    
     const response = await http.get<Array<Movie>>('/movies', {
         params: {
+            [searchKey]: params.searchValue || null,
             limit: MOVIES_LIMIT,
             offset: params.offset,
-            actor: params.actor,
-            title: params.actor,
-            search: params.search,
             order: params.order
         }
     });

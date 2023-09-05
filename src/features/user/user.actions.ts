@@ -27,6 +27,11 @@ export const loadTokenFromStorage = createAsyncThunk('user/loadToken', async () 
   return token;
 });
 
+export const logout = createAsyncThunk('user/loadToken', async () => {
+  http.cleanHeaders();
+  await memory.remove(StorageKeys.AccessToken);
+});
+
 export const login = createAsyncThunk('user/login', async ({ email, password }: UserLoginParams) => {
   const response = await http.post('/sessions', { email, password });
 

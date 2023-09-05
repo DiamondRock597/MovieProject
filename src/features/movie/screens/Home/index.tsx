@@ -1,19 +1,38 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Button } from '@rneui/base';
+import { Button, FAB } from '@rneui/base';
+import { AntDesign } from '@expo/vector-icons';
 
 import { MovieCard } from 'features/movie/components/MovieCard';
 import { Colors } from 'constants/colors';
 import { useHome } from './useHome';
+import { SearchInput } from 'features/movie/components/SearchInput';
 
 import { styles } from './styles';
 
 export const Home = () => {
-  const { onRefresh, items, isLoading, onEndReached, navigateToAdding } = useHome();
+  const {
+    items,
+    isLoading,
+    order,
+    onRefresh,
+    onEndReached,
+    navigateToAdding,
+    changeOrder,
+    handleLogout,
+    handleSearchValue,
+    selectedMethod,
+    setSelectedMethod
+  } = useHome();
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.headerContainer}>
+        <FAB size='small' title={order} color={Colors.Secondary} onPress={changeOrder} />
+        <AntDesign onPress={handleLogout} name='logout' size={25} />
+      </View>
+      <SearchInput selectedMethod={selectedMethod} setSelectedMethod={setSelectedMethod} onChangeText={handleSearchValue} />
       <FlatList
         onRefresh={onRefresh}
         data={items}

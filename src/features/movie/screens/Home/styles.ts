@@ -7,5 +7,12 @@ export const styles = StyleSheet.create({
     buttonStyle: {
         borderRadius: 10,
         marginHorizontal: 10,
+    },
+    headerContainer: {
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: 15
     }
 });
