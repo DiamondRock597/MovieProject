@@ -14,7 +14,7 @@ const initialState: MovieState = {
   items: [],
   offset: 0,
   isLoading: false,
-  selectedMovie: null
+  selectedMovie: null,
 };
 
 export const movieSlice = createSlice({
@@ -59,7 +59,7 @@ export const movieSlice = createSlice({
     [deleteMovie.rejected.type]: (state) => {
       state.isLoading = false;
       state.selectedMovie = null;
-    }
+    },
   }
 });
 

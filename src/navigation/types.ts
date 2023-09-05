@@ -4,7 +4,8 @@ export enum RootStackRoutes {
   Login = 'LOGIN',
   Register = 'REGISTER',
   Home = 'HOME',
-  MovieDetails = 'MOVIE_DETAILS'
+  MovieDetails = 'MOVIE_DETAILS',
+  AddingMovie = 'ADDING_MOVIE'
 }
 
 export type RootStackParamsList = {
@@ -14,6 +15,7 @@ export type RootStackParamsList = {
   [RootStackRoutes.MovieDetails]: {
     movieId: number;
   }
+  [RootStackRoutes.AddingMovie]: undefined;
 };
 
 

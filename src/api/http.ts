@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig, type AxiosInstance } from 'axios';
 
 import { AnyJson } from 'utils/any-json';
 import { baseURL } from '../../envs/env.json';
+import { Response } from 'models/response';
 
 type Headers = Record<string, string | number>;
 
@@ -27,22 +28,26 @@ export class Http {
   }
 
   public async get<T>(url: string, config?: AxiosRequestConfig<AnyJson>) {
-    const response = await this.axiosInstance.get<T>(url, config);
+    const response = await this.axiosInstance.get<Response<T>>(url, config);
+
     return response.data;
   }
 
   public async post<T>(url: string, data?: AnyJson) {
-    const response = await this.axiosInstance.post<T>(url, data);
+    const response = await this.axiosInstance.post<Response<T>>(url, data);
+
     return response.data;
   }
 
   public async patch<T>(url: string, data?: AxiosRequestConfig<AnyJson>) {
-    const response = await this.axiosInstance.put<T>(url, data);
+    const response = await this.axiosInstance.put<Response<T>>(url, data);
+
     return response.data;
   }
 
   public async delete<T>(url: string, config?: AxiosRequestConfig<AnyJson>) {
-    const response = await this.axiosInstance.delete<T>(url, config);
+    const response = await this.axiosInstance.delete<Response<T>>(url, config);
+
     return response.data;
   }
 

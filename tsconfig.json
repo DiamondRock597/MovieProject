@@ -12,7 +12,8 @@
       "constants/*": ["constants/*"],
       "models/*": ["models/*"],
       "navigation/*": ["navigation/*"],
-      "store:/*": ["store/*"]
+      "store:/*": ["store/*"],
+      "envs/*": ["../envs/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"]

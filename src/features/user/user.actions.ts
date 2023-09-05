@@ -28,7 +28,11 @@ export const loadTokenFromStorage = createAsyncThunk('user/loadToken', async () 
 });
 
 export const login = createAsyncThunk('user/login', async ({ email, password }: UserLoginParams) => {
-  const response = await http.post<{ token: string }>('/sessions', { email, password });
+  const response = await http.post('/sessions', { email, password });
+
+  if (!response.token) {
+    return '';
+  }
   await memory.save(StorageKeys.AccessToken, response.token);
 
   http.addHeader('Authorization', response.token);
@@ -37,7 +41,12 @@ export const login = createAsyncThunk('user/login', async ({ email, password }: 
 });
 
 export const register = createAsyncThunk('user/register', async ({ email, password, confirmPassword, name }: UserRegisterParams) => {
-  const response = await http.post<{ token: string }>('/users', { email, password, confirmPassword, name });
+  const response = await http.post('/users', { email, password, confirmPassword, name });
+
+  if (!response.token) {
+    return '';
+  }
+
   await memory.save(StorageKeys.AccessToken, response.token);
 
   http.addHeader('Authorization', response.token);

@@ -10,6 +10,7 @@ import { RootRouteProp, RootStackRoutes } from 'navigation/types';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { deleteMovie, fetchMovie } from 'features/movie/movie.actions';
 import { clearSelectedMovie } from 'features/movie/movie.slice';
+import { BackButton } from 'components/BackButton';
 
 import { styles } from './styles';
 
@@ -43,7 +44,7 @@ export const MovieDetails = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
-        <Ionicons onPress={goBack} name="arrow-back-sharp" size={35} color="black" />
+        <BackButton />
         <Text style={styles.headerTitle} numberOfLines={1}>{selectedMovie.title}</Text>
         <Ionicons onPress={deleteSelectedMovie} name="trash-sharp" size={35} color="black" />
       </View>
