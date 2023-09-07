@@ -24,7 +24,9 @@ I used the simplie module's architecture, where the features are separated by th
 
 
 ## How to run?
-
+- install `docker`
+- `docker pull webbylabhub/movies`
+- `docker run --name movies -p 8000:8000 webbylabhub/movies`
 - install expo-cli
 - `yarn` or `npm install` to install dependencies
 - `npx expo start`
