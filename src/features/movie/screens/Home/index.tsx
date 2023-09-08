@@ -16,13 +16,13 @@ export const Home = () => {
     items,
     isLoading,
     order,
+    handleSearchValue,
+    selectedMethod,
     onRefresh,
     onEndReached,
     navigateToAdding,
     changeOrder,
-    handleLogout,
-    handleSearchValue,
-    selectedMethod,
+    navigateToSettings,
     setSelectedMethod
   } = useHome();
 
@@ -30,7 +30,7 @@ export const Home = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
         <FAB size='small' title={order} color={Colors.Secondary} onPress={changeOrder} />
-        <AntDesign onPress={handleLogout} name='logout' size={25} />
+        <AntDesign onPress={navigateToSettings} name='setting' size={25} />
       </View>
       <SearchInput selectedMethod={selectedMethod} setSelectedMethod={setSelectedMethod} onChangeText={handleSearchValue} />
       <FlatList

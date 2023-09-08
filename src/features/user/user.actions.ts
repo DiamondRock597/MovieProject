@@ -29,7 +29,7 @@ export const loadTokenFromStorage = createAsyncThunk('user/loadToken', async () 
   return token;
 });
 
-export const logout = createAsyncThunk('user/loadToken', async () => {
+export const logout = createAsyncThunk('user/logout', async () => {
   http.cleanHeaders();
   await memory.remove(StorageKeys.AccessToken);
 });

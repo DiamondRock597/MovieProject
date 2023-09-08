@@ -34,9 +34,15 @@ export class Http {
   }
 
   public async post<T>(url: string, data?: AnyJson) {
-    const response = await this.axiosInstance.post<Response<T>>(url, data);
-
+    try {
+      const response = await this.axiosInstance.post<Response<T>>(url, data);
+      console.log({response});
+      
     return response.data;
+    } catch (error) {
+      console.log({error});
+      
+    }
   }
 
   public async patch<T>(url: string, data?: AxiosRequestConfig<AnyJson>) {

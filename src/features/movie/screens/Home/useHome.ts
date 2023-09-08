@@ -4,7 +4,6 @@ import _ from 'lodash';
 
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { MOVIES_LIMIT, fetchMovies, } from 'features/movie/movie.actions';
-import { logout } from 'features/user/user.actions';
 import { RootNavigationProp, RootStackRoutes } from 'navigation/types';
 import { Orders } from 'constants/order';
 import { SearchMethod } from 'constants/searchMethod';
@@ -51,7 +50,7 @@ export const useHome = () => {
     }, [dispatch, isLoading, offset, order, searchValue, selectedMethod]);
 
     const navigateToAdding = useCallback(() => navigation.navigate(RootStackRoutes.AddingMovie), [navigation]);
-    const handleLogout = useCallback(() => dispatch(logout()), [dispatch]);
+    const navigateToSettings = useCallback(() => navigation.navigate(RootStackRoutes.Settings), [navigation]);
 
     const changeOrder = useCallback(() => setOrder((prev) => prev === Orders.ASC ? Orders.DESC : Orders.ASC), [setOrder]);
 
@@ -63,9 +62,9 @@ export const useHome = () => {
         navigateToAdding,
         order,
         changeOrder,
-        handleLogout,
         selectedMethod,
         setSelectedMethod,
+        navigateToSettings,
         handleSearchValue: _.debounce(setSearchValue, SEARCH_INPUT_DELAY)
     }
 }

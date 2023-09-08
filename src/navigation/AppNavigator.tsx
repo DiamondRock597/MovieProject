@@ -7,6 +7,7 @@ import { Login } from 'features/user/screens/Login';
 import { Register } from 'features/user/screens/Register';
 import { MovieDetails } from 'features/movie/screens/MovieDetails';
 import { AddingMovie } from 'features/movie/screens/AddingMovie';
+import { Settings } from 'features/user/screens/Settings';
 import { useAppSelector } from 'store/hooks';
 import { RootStackParamsList, RootStackRoutes } from './types';
 
@@ -23,6 +24,7 @@ export const AppNavigator = () => {
             <Stack.Screen name={RootStackRoutes.Home} component={Home} />
             <Stack.Screen name={RootStackRoutes.MovieDetails} component={MovieDetails} />
             <Stack.Screen name={RootStackRoutes.AddingMovie} component={AddingMovie} />
+            <Stack.Screen name={RootStackRoutes.Settings} component={Settings} />
           </Stack.Group>
         ) : (
           <Stack.Group>
