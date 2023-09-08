@@ -1,6 +1,8 @@
 import { useCallback } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { UseFormReturn, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from 'yup';
 
 import { RootNavigationProp, RootStackRoutes } from "navigation/types";
 import { useAppDispatch } from "store/hooks";
@@ -16,6 +18,11 @@ export interface LoginFormTypes {
     [LoginFormValues.Password]: string;
 }
 
+const loginSchema = yup.object<LoginFormTypes>().shape({
+    [LoginFormValues.Email]: yup.string().required('Email is required').email('Not correct format for email'),
+    [LoginFormValues.Password]: yup.string().required('Password is required')
+});
+
 export const useLogin = () => {
     const navigation = useNavigation<RootNavigationProp>();
     const dispatch = useAppDispatch();
@@ -25,6 +32,7 @@ export const useLogin = () => {
             email: '',
             password: '',
         },
+        resolver: yupResolver(loginSchema)
     });
 
     const handleLogin = useCallback(({ email, password }: LoginFormTypes) => dispatch(login({ email, password })), [dispatch]);

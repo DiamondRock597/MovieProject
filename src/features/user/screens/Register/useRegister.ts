@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { UseFormReturn, useForm } from "react-hook-form";
 import { useNavigation } from "@react-navigation/native";
+import * as yup from 'yup';
 
 import { register } from "features/user/user.actions";
 import { RootNavigationProp, RootStackRoutes } from "navigation/types";
@@ -24,6 +25,13 @@ export const PASSWORD_RULES = {
     minLength: { value: 6, message: 'Password should have more than 6 symbols' },
     maxLength: { value: 16, message: 'Password should have less than 16 sybmols' },
 };
+
+const registerSchema = yup.object<RegisterFormTypes>().shape({
+    [RegisterFormValues.Email]: yup.string().required('Email is required').email('Not correct format for email'),
+    [RegisterFormValues.Name]: yup.string().required('Name is required'),
+    [RegisterFormValues.Password]: yup.string().required('Password is required').min(6, 'Password should have more than 6 symbols').max(10, 'Password should have less than 10 symbols'),
+    [RegisterFormValues.Confirmation]: yup.string().required('Password is required').min(6, 'Password should have more than 6 symbols').max(10, 'Password should have less than 10 symbols')
+});
 
 export const useRegister = () => {
     const navigation = useNavigation<RootNavigationProp>();

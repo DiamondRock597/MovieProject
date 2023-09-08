@@ -2,47 +2,51 @@ import React, { useCallback, useState } from 'react';
 import { Alert, Text, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Button } from '@rneui/base';
+import { DocumentPickerAsset } from 'expo-document-picker';
 
 import { BackButton } from 'components/BackButton';
 import { useAppDispatch } from 'store/hooks';
+import { Colors } from 'constants/colors';
+import { FileSystem } from 'api/file-system';
+import { uploadMovies } from 'features/movie/movie.actions';
 import { logout } from 'features/user/user.actions';
 
 import { styles } from './styles';
-import { Button } from '@rneui/base';
-import { Colors } from 'constants/colors';
-import { FileSystem } from 'api/file-system';
-import { DocumentPickerAsset } from 'expo-document-picker';
-import { uploadMovies } from 'features/movie/movie.actions';
-import { DocumentPickerResponse } from 'react-native-document-picker';
 
 export const Settings = () => {
-  const [file, setFileName] = useState<DocumentPickerResponse | null>(null);
+  const [file, setFileName] = useState<DocumentPickerAsset | null>(null);
   const dispatch = useAppDispatch();
 
   const handleLogout = useCallback(() => dispatch(logout()), [dispatch]);
 
   const uploadFile = useCallback(async () => {
     try {
-      const file = await FileSystem.pick();
+      setFileName(null);
+      const file = await FileSystem.pick('text/plain');
 
       if (!file) {
         return;
       }
 
       if (!file.size) {
-        Alert.alert('Ups!', 'File is empty.');
+        Alert.alert('Ups!', `File ${file.name} is empty.`);
         return;
       }
 
       setFileName(file);
     } catch (error) {
-      console.log({error});
-      
       Alert.alert('Ups!', 'Something went wrong');
     }
   }, [setFileName]);
 
-  const submit = useCallback(() => dispatch(uploadMovies(file)), [dispatch, file]);
+  const submit = useCallback(() => {
+    if (!file) {
+      return;
+    }
+
+    dispatch(uploadMovies(file));
+  }, [dispatch, file]);
 
   return (
     <SafeAreaView style={styles.container}>

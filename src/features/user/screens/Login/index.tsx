@@ -16,7 +16,6 @@ export const Login = () => {
             <Text style={styles.title} numberOfLines={2}>Welcome back to MovieProject!</Text>
             <View style={styles.content}>
                 <Controller
-                    rules={{ required: 'Email is required' }}
                     control={control}
                     name={LoginFormValues.Email}
                     render={({ field, fieldState: { error } }) => (
@@ -24,7 +23,6 @@ export const Login = () => {
                     )}
                 />
                 <Controller
-                    rules={{ required: 'Password is required' }}
                     control={control}
                     name={LoginFormValues.Password}
                     render={({ field, fieldState: { error } }) => (

@@ -17,7 +17,6 @@ export const Register = () => {
       <View style={styles.content}>
         <Controller
           control={control}
-          rules={{ required: 'Email is required' }}
           name={RegisterFormValues.Email}
           render={({ field, fieldState: { error } }) => (
             <Input label='Email' keyboardType='email-address' errorMessage={error?.message} value={field.value} onChangeText={field.onChange} />
@@ -25,7 +24,6 @@ export const Register = () => {
         />
         <Controller
           control={control}
-          rules={{ required: 'Name is required' }}
           name={RegisterFormValues.Name}
           render={({ field, fieldState: { error } }) => (
             <Input label='Name' value={field.value} onChangeText={field.onChange} errorMessage={error?.message} />
@@ -33,7 +31,6 @@ export const Register = () => {
         />
         <Controller
           control={control}
-          rules={PASSWORD_RULES}
           name={RegisterFormValues.Password}
           render={({ field, fieldState: { error } }) => (
             <Input label='Password' secureTextEntry value={field.value} onChangeText={field.onChange} errorMessage={error?.message} />
@@ -41,7 +38,6 @@ export const Register = () => {
         />
         <Controller
           control={control}
-          rules={PASSWORD_RULES}
           name={RegisterFormValues.Confirmation}
           render={({ field, fieldState: { error } }) => (
             <Input label='Password confirmation' secureTextEntry value={field.value} onChangeText={field.onChange} errorMessage={error?.message} />

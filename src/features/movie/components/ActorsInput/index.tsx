@@ -24,6 +24,7 @@ export const ActorsInput: React.FC<ActorsInputProps> = ({ actors, addActorInList
                 onChangeText={setActorName}
                 label='Actor'
                 rightIcon={rightIcon}
+                keyboardType='name-phone-pad'
             />
             <Text style={styles.title}>Actor's list:</Text>
             <FlatList

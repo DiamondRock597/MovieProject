@@ -9,7 +9,7 @@ import { MovieFormatPicker } from 'features/movie/components/MovieFormatPicker';
 import { ActorsInput } from 'features/movie/components/ActorsInput';
 import { BackButton } from 'components/BackButton';
 import { Colors } from 'constants/colors';
-import { useAddingMovie, AddingMovieFormValues, YEAR_INPUT_RULES } from './useAddingMovie';
+import { useAddingMovie, AddingMovieFormValues } from './useAddingMovie';
 
 import { styles } from './styles';
 
@@ -34,7 +34,6 @@ export const AddingMovie = () => {
       <View style={styles.contentContainer}>
         <Controller
           control={control}
-          rules={{ required: { value: true, message: 'Name is required' } }}
           name={AddingMovieFormValues.Name}
           render={({ field, fieldState: { error } }) => (
             <Input
@@ -48,7 +47,6 @@ export const AddingMovie = () => {
         <Controller
           control={control}
           name={AddingMovieFormValues.Year}
-          rules={YEAR_INPUT_RULES}
           render={({ field, fieldState: { error } }) => (
             <Input
               label='Year'

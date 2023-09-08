@@ -1,11 +1,13 @@
 import { useCallback, useState } from "react";
+import { Alert } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import { MovieFormats } from "models/movie";
 import { useAppDispatch } from "store/hooks";
 import { useForm } from "react-hook-form";
 import { createMovie } from "features/movie/movie.actions";
-import { Alert } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
 export enum AddingMovieFormValues {
     Name = 'name',
@@ -18,10 +20,10 @@ export interface AddingMovieFormTypes {
 }
 
 
-export const YEAR_INPUT_RULES = {
-    maxLength: { value: 4, message: 'Too high for years' },
-    minLength: { value: 1, message: 'Too low' }
-}
+const addingMovieSchema = yup.object<AddingMovieFormTypes>().shape({
+    [AddingMovieFormValues.Name]: yup.string().required('Name is required').trim('Spaces is disabled'),
+    [AddingMovieFormValues.Year]: yup.number().required('Year is required').integer().min(1900, 'It should be greater than 1900').max(2025, 'It should be less than 1900')
+});
 
 export const useAddingMovie = () => {
     const dispatch = useAppDispatch();
@@ -31,7 +33,8 @@ export const useAddingMovie = () => {
         defaultValues: {
             name: '',
             year: 2000
-        }
+        },
+        resolver: yupResolver(addingMovieSchema)
     });
 
     const [isVisible, setIsVisible] = useState(false);
